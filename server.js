@@ -34,3 +34,11 @@ var server = spdy.createServer(config.ssl,
       proxy.web(req, res, { target: 'http://localhost:80' });
     }
 ).listen(443);
+
+http.createServer(function(req, res) {
+  console.log('request port 80', req.url);
+  res.writeHead(302, {
+    Location: 'https://michielbdejong.com'+req.url //todo: read this from the host header
+  });
+  res.end();
+}).listen(80);
