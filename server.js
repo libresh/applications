@@ -31,7 +31,7 @@ var proxy = httpProxy.createProxyServer({/*options*/});
 
 var server = spdy.createServer(config.ssl,
     function(req, res) {
-      proxy.web(req, res, { target: 'http://localhost:80' });
+      proxy.web(req, res, { target: 'http://localhost:801' });
     }
 ).listen(443);
 
