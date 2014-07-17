@@ -1,0 +1,26 @@
+{ "name"            : "cell"
+, "description"     : "Simple SPDY/SNI proxy for jitboot cells"
+, "homepage"        : "http://github.com/michielbdejong/cell"
+, "author"          : "Michiel de Jong <michiel@unhosted.org> (https://michielbdejong.com/)"
+, "keywords"        : ["jitboot", "spdy", "sni"]
+, "license"         : "MIT"
+
+, "version"         : "0.1.0"
+, "engines"         : {"node": ">=0.11.10"}
+, "main"            : "./server.js"
+
+, "dependencies"    : { "spdy": ""
+                      , "crypto": ""
+                      , "http-proxy": ""
+                      }
+, "devDependencies" : { }
+
+, "scripts"         : { }
+
+, "repository"      : { "type"  : "git"
+                      , "url"   : "git://github.com/michielbdejong/cell.git"
+                      }
+
+, "bugs"            : {"url": "http://github.com/michielbdejong/cell/issues"}
+}
+
