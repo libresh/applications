@@ -10,7 +10,6 @@
 , "main"            : "./server.js"
 
 , "dependencies"    : { "spdy": ""
-                      , "crypto": ""
                       , "http-proxy": ""
                       }
 , "devDependencies" : { }
