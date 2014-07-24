@@ -8,9 +8,9 @@ b64decode = function(encoded) {
 };
 
 var keys = {
-    "key": fs.readFileSync('/data/cell/cert/blog.michielbdejong.com/tls.key'),
-    "cert": fs.readFileSync('/data/cell/cert/blog.michielbdejong.com/tls.cert'),
-    "chain": fs.readFileSync('/data/cell/cert/blog.michielbdejong.com/chain.pem')
+    "key": fs.readFileSync('/home/michiel/michiel-data/bouncer/cert/blog.michielbdejong.com/tls.key'),
+    "cert": fs.readFileSync('/home/michiel/michiel-data/bouncer/cert/blog.michielbdejong.com/tls.cert'),
+    "chain": fs.readFileSync('/home/michiel/michiel-data/bouncer/cert/blog.michielbdejong.com/chain.pem')
 };
 var loadedKeys = crypto.createCredentials(keys).context;
 
@@ -31,7 +31,9 @@ var proxy = httpProxy.createProxyServer({/*options*/});
 
 var server = spdy.createServer(config.ssl,
     function(req, res) {
-      proxy.web(req, res, { target: 'http://localhost:801' });
+      console.log('proxying '+req.url);
+      proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_80_TCP_ADDR });
+      console.log('proxied '+req.url);
     }
 ).listen(443);
 
