@@ -1,16 +1,17 @@
 //based on https://gist.github.com/RushPL/8141755
 var spdy = require('spdy'),
     crypto = require('crypto'),
-    fs = require('fs');
+    fs = require('fs'),
+    config = JSON.parse(fs.readFileSync('/data/bouncer/3pp.json'));
 
 b64decode = function(encoded) {
     return new Buffer(encoded || '', 'base64').toString('utf8');
 };
 
 var keys = {
-    "key": fs.readFileSync('/home/michiel/michiel-data/bouncer/cert/blog.michielbdejong.com/tls.key'),
-    "cert": fs.readFileSync('/home/michiel/michiel-data/bouncer/cert/blog.michielbdejong.com/tls.cert'),
-    "chain": fs.readFileSync('/home/michiel/michiel-data/bouncer/cert/blog.michielbdejong.com/chain.pem')
+    "key": fs.readFileSync('/data/bouncer/cert/'+config.cert+'/tls.key'),
+    "cert": fs.readFileSync('/data/bouncer/cert/'+config.cert+'/tls.cert'),
+    "chain": fs.readFileSync('/data/bouncer/cert/'+config.cert+'/chain.pem')
 };
 var loadedKeys = crypto.createCredentials(keys).context;
 
@@ -29,13 +30,21 @@ var http = require('http');
 var httpProxy = require('http-proxy');
 var proxy = httpProxy.createProxyServer({/*options*/});
 
-var server = spdy.createServer(config.ssl,
-    function(req, res) {
-      console.log('proxying '+req.url);
-      proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_80_TCP_ADDR });
-      console.log('proxied '+req.url);
-    }
+spdy.createServer(config.ssl,
+  function(req, res) {
+    console.log('proxying web '+req.url);
+    proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_80_TCP_ADDR });
+    console.log('proxied web '+req.url);
+  }
 ).listen(443);
+
+spdy.createServer(config.ssl,
+  function(req, res) {
+    console.log('proxying 7678 '+req.url);
+    proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_7678_TCP_ADDR });
+    console.log('proxied 7678 '+req.url);
+  }
+).listen(7678);
 
 http.createServer(function(req, res) {
   console.log('request port 80', req.url);
