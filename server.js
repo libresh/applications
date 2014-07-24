@@ -41,7 +41,7 @@ spdy.createServer(config.ssl,
 spdy.createServer(config.ssl,
   function(req, res) {
     console.log('proxying 7678 '+req.url);
-    proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_7678_TCP_ADDR });
+    proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_7678_TCP_ADDR + ':7678' });
     console.log('proxied 7678 '+req.url);
   }
 ).listen(7678);
