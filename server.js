@@ -33,7 +33,13 @@ var proxy = httpProxy.createProxyServer({/*options*/});
 spdy.createServer(config.ssl,
   function(req, res) {
     console.log('proxying web '+req.url);
-    proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_80_TCP_ADDR });
+    try {
+      proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_80_TCP_ADDR });
+    } catch(e) {
+      console.log('proxy fail', e);
+      res.writeHead(500);
+      req.end();
+    }
     console.log('proxied web '+req.url);
   }
 ).listen(443);
@@ -41,7 +47,13 @@ spdy.createServer(config.ssl,
 spdy.createServer(config.ssl,
   function(req, res) {
     console.log('proxying 7678 '+req.url);
-    proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_7678_TCP_ADDR + ':7678' });
+    try {
+      proxy.web(req, res, { target: 'http://' + process.env.RESITE_PORT_7678_TCP_ADDR + ':7678' });
+    } catch(e) {
+      console.log('proxy fail', e);
+      res.writeHead(500);
+      req.end();
+    }
     console.log('proxied 7678 '+req.url);
   }
 ).listen(7678);
