@@ -16,7 +16,7 @@ for(domain in config.certs) {
     "cert": fs.readFileSync('/data/bouncer/cert/'+config.certs[domain]+'/tls.cert'),
     "chain": fs.readFileSync('/data/bouncer/cert/'+config.certs[domain]+'/chain.pem')
   };
-  loadedKeys[domain] = crypto.createCredentials(keys).context;
+  loadedKeys[domain] = crypto.createCredentials(keys[domain]).context;
 }
 
 var spdyConfig = {
@@ -24,6 +24,7 @@ var spdyConfig = {
 };
 console.log(config, keys, spdyConfig);
 spdyConfig.ssl.SNICallback = function(hostname, cb) {
+  console.log('SNI', hostname);
   if (cb) {// 0.11.5 and later
     return cb(null, loadedKeys[hostname]);
   }
@@ -41,7 +42,7 @@ function makeTarget(route) {
 }
 
 function doProxy(req, res, port) {
-  console.log('proxying '+port+' '+req.url);
+  console.log('proxying '+port+' '+req.url, req.headers.host);
   try {
     for (domain in config.routes[port]) {
       if (req.headers.host === domain) {
@@ -73,7 +74,7 @@ proxyPort(443);
 proxyPort(7678);
 
 http.createServer(function(req, res) {
-  console.log('request port 80', req.url);
+  console.log('request port 80', req.url, req.headers.host);
   if(config.redirect[req.headers.host]) {
     res.writeHead(302, {
       Location: config.redirect[req.headers.host] + req.url
