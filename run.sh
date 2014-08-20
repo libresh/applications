@@ -1,6 +1,6 @@
-#or: docker build -t michielbdejong/3pp-bouncer bouncer/
-docker pull michielbdejong/resite
-docker pull michielbdejong/3pp-bouncer
+docker build -t michielbdejong/resite per-user/resite/
+docker build -t michielbdejong/3pp-bouncer server-wide/bouncer/
+docker build -t michielbdejong/mail server-wide/mail/
 
 docker stop resitedefault
 docker rm resitedefault
