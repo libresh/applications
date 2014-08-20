@@ -1,0 +1,50 @@
+{
+  "certs": {
+    "michielbdejong.com": "blog.michielbdejong.com",
+    "blog.michielbdejong.com": "blog.michielbdejong.com",
+    "joebloggs.com": "www.joebloggs.com",
+    "www.joebloggs.com": "www.joebloggs.com",
+    "default": "k1.michiel.indiehosters.net"
+  },
+  "routes": {
+    "443": {
+      "michielbdejong.com": {
+        "app": "resitemichiel",
+        "port": 80
+      },
+      "joebloggs.com": {
+        "app": "resitejoebloggs",
+        "port": 80
+      },
+      "default": {
+        "app": "resitedefault",
+        "port": 80
+      }
+    },
+    "7678": {
+      "michielbdejong.com": {
+        "app": "resitemichiel",
+        "port": 7678
+      },
+      "joebloggs.com": {
+        "app": "resitejoebloggs",
+        "port": 7678
+      },
+      "default": {
+        "app": "resitedefault",
+        "port": 80
+      }
+    },
+    "80": {
+      "default": {
+        "app": "resitedefault",
+        "port": 80
+      }
+    }
+  },
+  "redirect": {
+    "michielbdejong.com": "https://michielbdejong.com",
+    "joebloggs.com": "https://joebloggs.com",
+    "k1.michiel.indiehosters.net": "https://k1.michiel.indiehosters.net"
+  }
+}

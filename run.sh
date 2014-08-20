@@ -1,16 +1,26 @@
-sudo docker pull michielbdejong/resite
-sudo docker pull michielbdejong/3pp-bouncer
+#or: docker build -t michielbdejong/3pp-bouncer bouncer/
+docker pull michielbdejong/resite
+docker pull michielbdejong/3pp-bouncer
 
-sudo docker stop resite
-sudo docker rm resite
-sudo docker stop bouncer
-sudo docker rm bouncer
-sudo docker run -d -v /root/michiel-data/resite:/data/resite --name resite michielbdejong/resite
-sudo docker run -d -v /root/michiel-data/bouncer:/data/bouncer --name bouncer --link resite:resite -p 80:80 -p 443:443 -p 7678:7678 michielbdejong/3pp-bouncer
-sudo docker run -d -v /root/michiel-data/mail:/data/mail --name mail -p 25:25 -p 143:143 -p 993:993 cpuguy83/mail
-sudo docker run -d -v /root/michiel-data/mailpile:/data/mailpile --name mailpile -p 2001:33411 mazzolino/mailpile
-sudo docker ps
-sudo docker logs bouncer
-sudo docker logs resite
-sudo docker logs mail
-sudo docker logs mailpile
+docker stop resitedefault
+docker rm resitedefault
+docker run -d -v /data/default/resite:/data/resite --name resitedefault michielbdejong/resite
+docker logs resitedefault
+
+docker stop resitemichiel
+docker rm resitemichiel
+docker run -d -v /data/michiel/resite:/data/resite --name resitemichiel michielbdejong/resite
+docker logs resitemichiel
+
+#docker stop resitejoebloggs
+#docker rm resitejoebloggs
+#docker run -d -v /data/joebloggs/resite:/data/resite --name resitejoebloggs michielbdejong/resite
+#docker logs resitejoebloggs
+
+docker stop bouncer
+docker rm bouncer
+#... --link resitejoebloggs:resitejoebloggs ...
+docker run -d -v /data/default/bouncer:/data/bouncer --name bouncer --link resitedefault:resitedefault --link resitemichiel:resitemichiel -p 80:80 -p 443:443 -p 7678:7678 michielbdejong/3pp-bouncer
+docker logs bouncer
+
+docker ps
