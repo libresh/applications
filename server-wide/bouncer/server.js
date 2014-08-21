@@ -9,16 +9,16 @@ b64decode = function(encoded) {
 
 var keys = {}, loadedKeys = {};
 var domains = fs.readdirSync('/data/per-user');
-for (domain in domains) {
+for (var i = 0; i < domains.length; i++) {
   try {
-    keys[domain] = {
-      "key": fs.readFileSync('/data/per-user/'+domain+'/bouncer/cert/tls.key'),
-      "cert": fs.readFileSync('/data/per-user/'+domain+'/bouncer/cert/tls.cert'),
-      "chain": fs.readFileSync('/data/per-user/'+domain+'/bouncer/cert/chain.pem')
+    keys[domains[i]] = {
+      "key": fs.readFileSync('/data/per-user/'+domains[i]+'/bouncer/cert/tls.key'),
+      "cert": fs.readFileSync('/data/per-user/'+domains[i]+'/bouncer/cert/tls.cert'),
+      "chain": fs.readFileSync('/data/per-user/'+domains[i]+'/bouncer/cert/chain.pem')
     };
-    loadedKeys[domain] = crypto.createCredentials(keys[domain]).context;
+    loadedKeys[domain] = crypto.createCredentials(keys[domains[i]]).context;
   } catch(e) {
-    console.log('failed to load certs from /data/per-user/'+domain+'/bouncer/cert');
+    console.log('failed to load certs from /data/per-user/'+domains[i]+'/bouncer/cert');
   }
 }
 
@@ -54,13 +54,13 @@ function doProxy(req, res, image, portTo) {
     console.log('proxying to ' + image + ' port ' + portTo + ' ' + req.url + ' for ' + domain);
     target = makeTarget(image, domain, portTo);
     proxy.web(req, res, { target: target });
-    console.log('proxied ' + port + ' ' + req.url + ' to ' + target);
+    console.log('proxied ' + req.url + ' to ' + target);
   } catch (e) {
     console.log('proxy fail', e);
     res.writeHead(500);
-    req.end();
+    res.end();
   }
-  console.log('proxied ' + port + ' ' + req.url);
+  console.log('proxied ' + req.url);
 }
 
 function proxyPort(portExt, image, portTo) {
