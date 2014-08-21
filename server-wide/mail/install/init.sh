@@ -1,6 +1,7 @@
 #!/bin/sh
 MYSQL_PASSWORD=`pwgen -c -n -1 12`
 MICHIEL_PASSWORD=`pwgen -c -n -1 12`
+mkdir -p /data/per-user/michielbdejong.com/mail/password
 echo $MICHIEL_PASSWORD > /data/per-user/michielbdejong.com/mail/password/anything
 HOST_NAME=`hostname -f`
 sed -i "s/mailuserpass/$MYSQL_PASSWORD/g" /install/init.mysql
@@ -21,6 +22,10 @@ apt-get install -y postfix postfix-mysql dovecot-core dovecot-imapd dovecot-pop3
 #MySQL
 /etc/init.d/mysql start && mysqladmin -p$MYSQL_PASSWORD create mailserver
 /etc/init.d/mysql start && cat /install/init.mysql | mysql -p$MYSQL_PASSWORD mailserver
+
+mkdir -p /data/server-wide/mail/var/mysql
+mv /var/mysql/data /data/server-wide/mail/var/mysql/
+ln -s /data/server-wide/mail/var/mysql/data /var/mysql/data
 
 #Postfix
 #cp /install/postfix/main.cf /etc/postfix/main.cf
