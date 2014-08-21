@@ -16,9 +16,9 @@ for (var i = 0; i < domains.length; i++) {
       "cert": fs.readFileSync('/data/per-user/'+domains[i]+'/bouncer/cert/tls.cert'),
       "chain": fs.readFileSync('/data/per-user/'+domains[i]+'/bouncer/cert/chain.pem')
     };
-    loadedKeys[domain] = crypto.createCredentials(keys[domains[i]]).context;
+    loadedKeys[domains[i]] = crypto.createCredentials(keys[domains[i]]).context;
   } catch(e) {
-    console.log('failed to load certs from /data/per-user/'+domains[i]+'/bouncer/cert');
+    console.log('failed to load certs from /data/per-user/'+domains[i]+'/bouncer/cert', e);
   }
 }
 
@@ -51,6 +51,7 @@ function doProxy(req, res, image, portTo) {
     if (loadedKeys[req.headers.host]) {
       domain = req.headers.host;
     }
+    console.log('domain', domain, Object.keys(loadedKeys));
     console.log('proxying to ' + image + ' port ' + portTo + ' ' + req.url + ' for ' + domain);
     target = makeTarget(image, domain, portTo);
     proxy.web(req, res, { target: target });
@@ -77,7 +78,7 @@ http.createServer(function(req, res) {
   console.log('request port 80', req.url, req.headers.host);
   if (loadedKeys[req.headers.host]) {
     res.writeHead(302, {
-      Location: 'https://' + req.headers.host + '/' + req.url
+      Location: 'https://' + req.headers.host + req.url
     });
     res.end();
   } else {//no TLS cert for this host! fall back to serving over http
