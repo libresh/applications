@@ -1,6 +1,7 @@
 #!/bin/sh
 MYSQL_PASSWORD=`pwgen -c -n -1 12`
 MICHIEL_PASSWORD=`pwgen -c -n -1 12`
+echo $MICHIEL_PASSWORD > /data/per-user/michielbdejong.com/mail/password/anything
 HOST_NAME=`hostname -f`
 sed -i "s/mailuserpass/$MYSQL_PASSWORD/g" /install/init.mysql
 sed -i "s/michielpassword/$MICHIEL_PASSWORD/g" /install/init.mysql
