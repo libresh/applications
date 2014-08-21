@@ -1,0 +1,3 @@
+default k1.michiel.indiehosters.net
+michielbdejong.com blog.michielbdejong.com
+joebloggs.com www.joebloggs.com
