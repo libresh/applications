@@ -1,7 +1,4 @@
-docker build -t indiehosters/resite per-user/resite/
-docker build -t indiehosters/bouncer server-wide/bouncer/
-docker build -t indiehosters/mail server-wide/mail/
-
+#!/bin/bash
 LINKS=""
 cd /data/per-user
 for i in *
