@@ -52,7 +52,7 @@ function doProxy(req, res, port) {
         return;
       }
     }
-    target = makeTarget(config.routes[port][domain]);
+    target = makeTarget(config.routes[port]['default']);
     proxy.web(req, res, { target: target }) ;
     console.log('proxied '+port+' '+req.url+' to default '+target);
   } catch(e) {
