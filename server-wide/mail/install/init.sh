@@ -28,11 +28,15 @@ mv /var/mysql/data /data/server-wide/mail/var/mysql/
 ln -s /data/server-wide/mail/var/mysql/data /var/mysql/data
 
 #Postfix
-#cp /install/postfix/main.cf /etc/postfix/main.cf
-#cp /install/postfix/mysql-virtual-mailbox-domains.cf /etc/postfix/mysql-virtual-mailbox-domains.cf
-#cp /install/postfix/mysql-virtual-mailbox-maps.cf /etc/postfix/mysql-virtual-mailbox-maps.cf
-#cp /install/postfix/mysql-virtual-alias-maps.cf /etc/postfix/mysql-virtual-alias-maps.cf
-# cp /install/postfix/master.cf /etc/postfix/master.cf
+cp /install/postfix/main.cf /etc/postfix/main.cf
+cp /install/postfix/mysql-virtual-mailbox-domains.cf /etc/postfix/mysql-virtual-mailbox-domains.cf
+cp /install/postfix/mysql-virtual-mailbox-maps.cf /etc/postfix/mysql-virtual-mailbox-maps.cf
+cp /install/postfix/mysql-virtual-alias-maps.cf /etc/postfix/mysql-virtual-alias-maps.cf
+cp /install/postfix/master.cf /etc/postfix/master.cf
+
+mkdir -p /data/server-wide/mail/etc
+mv /etc/postfix /data/server-wide/mail/etc/
+ln -s /data/server-wide/mail/etc/postfix /etc/postfix
 
 #Dovecot
 cp /install/dovecot/dovecot.conf /etc/dovecot/dovecot.conf
