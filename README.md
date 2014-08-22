@@ -7,7 +7,7 @@ To use it:
 * take a server (e.g. CoreOS or Ubuntu),
 * if you use CoreOS, Docker is already available. Otherwise, you have two options:
   * install standard Docker and set up systemd or upstart yourself
-  * install Docker version 1.2 (e.g. install the latest binary)
+  * install Docker version 1.2 (e.g. wget the latest binary to /usr/bin/docker)
 * git clone git@github.com:indiehosters/dockerfiles
 * cd dockerfiles
 * sh ./build.sh
