@@ -15,7 +15,7 @@ RUN LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install ssh -qq -y --force-y
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get clean
 
-RUN service slapd start && yunohost tools postinstall -d asdf.com -p 1234asdf
+RUN service slapd start && yunohost tools postinstall -d mydomain.com -p changeme
 
 EXPOSE 22 25 53/udp 443 465 993 5222 5269 5290
 CMD /sbin/init
