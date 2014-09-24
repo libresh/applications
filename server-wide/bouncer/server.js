@@ -41,7 +41,7 @@ var httpProxy = require('http-proxy');
 var proxy = httpProxy.createProxyServer({/*options*/});
 
 function makeTarget(image, domain, portTo) {
-  var envVar = image.toUpperCase() + '_' + domain.toUpperCase() + '_PORT_' + portTo + '_TCP_ADDR';
+  var envVar = image.toUpperCase() + '_' + domain.toUpperCase().replace('-', '_') + '_PORT_' + portTo + '_TCP_ADDR';
   console.log('looking up', process.env, envVar);
   return 'http://' + process.env[envVar] + ':' + portTo;
 }
