@@ -40,7 +40,7 @@ git submodule init
 git submodule update
 for folder in server-wide per-user; do
   for image in $(find $folder/* -type d | cut -d "/" -f 2); do
-    echo sudo docker build -t indiehosters/$image $folder/$image/;
+    sudo docker build -t indiehosters/$image $folder/$image/;
  done
 done
 ```
