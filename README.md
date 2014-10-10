@@ -32,15 +32,4 @@ Per-user:
 
 # Build
 
-To build, run:
-
-```bash
-git pull --rebase
-git submodule init
-git submodule update
-for folder in server-wide per-user; do
-  for image in $(find $folder/* -type d | cut -d "/" -f 2); do
-    sudo docker build -t indiehosters/$image $folder/$image/;
- done
-done
-```
+To build, run `sh ./init.sh; sh ./build.sh`
