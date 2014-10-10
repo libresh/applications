@@ -1,0 +1,3 @@
+[submodule "server-wide/yunohost"]
+	path = server-wide/yunohost
+	url = https://github.com/YunoHost/install_scripts.git
