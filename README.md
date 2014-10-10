@@ -1,18 +1,31 @@
-#IndieHosters Dockerfiles
+# Dockerfiles
 
-This is a first draft of the containers I'm running on k1.michiel.indiehosters.net.
+This repo contains the Dockerfiles for images used in [the IndieHosters infrastructure](https://github.com/indiehosters/infrastructure.git).
 
-To use it:
+We have three ways of building Docker images:
 
-* take a server (e.g. CoreOS or Ubuntu),
-* if you use CoreOS, Docker is already available. Otherwise, you have two options:
-  * install standard Docker and set up systemd or upstart yourself
-  * install Docker version 1.2 (e.g. wget the latest binary to /usr/bin/docker)
-* git clone git@github.com:indiehosters/dockerfiles
-* cd dockerfiles
-* sh ./build.sh
-* docker run -i -t -v /data:/data indieserver/admin /install/initserver.sh k1.michiel.indiehosters.net
-* docker run -i -t -v /data:/data indieserver/admin /install/addDomain.sh michielbdejong.com
-* edit the certificate files in `/data/per-user/michielbdejong.com/bouncer/cert/`
-* sh ./run.sh
-* if you want to use systemd or upstart (e.g. when you are running on CoreOS), and/or if are using docker version < 1.2, then you will need to use `sh ./run-no-restart.sh` instead of `sh ./run.sh`.
+* from source - In this repo, there will be a git submodule to a software project that includes a Dockerfile in its source repo.
+    we will build images from that as indiehosters/project:tag, where project is the name of the submodule here, and tag is a git
+    tag inside that repo. If what we need for the IndieHosters infrastructure is not available out of the box then we will fork the
+    project, and submodule our fork, while at the same time submiting a pull request upstream. As soon as this pull request gets merged
+    we will submodule the upstream project directly again.
+
+* from package - In this repo, there will be a folder with a Dockerfile which refers to the actual software via a package system, probably
+    apt-get.
+
+* by reference - Same as from package, but instead of doing a package install like `apt-get`, it would do a source install, so `git clone` or
+    `wget`. This might be useful for instance when an image combines code from several open source projects. In most cases though, it will be preferable to add the Dockerfile into the upstream source repo of the user-facing application.
+
+
+NB: So far, at the time of writing, infrastructure doesn't use any of the images from this repo yet, but still uses the following third-party
+packages which it pulls from the public image registry operated by docker.com:
+
+Server-wide:
+
+* dockerfile/haproxy
+
+Per-user:
+
+* tutum/wordpress-stackable
+* tutum/mysql
+* tutum/nginx

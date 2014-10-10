@@ -1,1 +1,0 @@
-FROM michielbdejong/cozy-setup

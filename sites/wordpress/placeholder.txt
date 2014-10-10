@@ -1,4 +1,0 @@
-This is a placeholder to make sure sites/wordpress shows up in our dockerfiles repo when people search for it.
-
-There is no Docker file here because, in reality, we are running tutum/wordpress-stackable, together with tutum/mysql
-as part of our infrastructure.

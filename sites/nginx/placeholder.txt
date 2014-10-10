@@ -1,3 +1,0 @@
-This is a placeholder to make sure sites/nginx shows up in our dockerfiles repo when people search for it.
-
-There is no Docker file here because, in reality, we are running tutum/nginx as part of our infrastructure.
