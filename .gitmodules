@@ -1,3 +1,6 @@
 [submodule "server-wide/yunohost"]
 	path = server-wide/yunohost
 	url = https://github.com/YunoHost/install_scripts.git
+[submodule "per-user/idno"]
+	path = per-user/idno
+	url = https://github.com/idno/idno.git
