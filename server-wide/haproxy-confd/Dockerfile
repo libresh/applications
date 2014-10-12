@@ -1,0 +1,1 @@
+FROM pierreozoux/haproxy-confd

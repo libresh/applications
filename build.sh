@@ -15,8 +15,10 @@ git submodule update
   git checkout add-Dockerfile
   cd ../..
 
-for folder in server-wide per-user; do
-  for image in $(find $folder/* -type d | cut -d "/" -f 2); do
-    sudo docker build -t indiehosters/$image $folder/$image/;
- done
-done
+  for image in $(ls per-user/* | cut -d "/" -f 2); do
+    echo sudo docker build -t indiehosters/$image per-user/$image/;
+  done
+
+  for image in $(ls server-wide/* | cut -d "/" -f 2); do
+    echo sudo docker build -t indiehosters/$image server-wide/$image/;
+  done
