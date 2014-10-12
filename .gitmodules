@@ -1,12 +1,12 @@
 [submodule "server-wide/yunohost"]
 	path = server-wide/yunohost
-	url = https://github.com/YunoHost/install_scripts.git
+	url = https://github.com/michielbdejong/YunoHost-install_scripts.git
 [submodule "per-user/idno"]
 	path = per-user/idno
-	url = https://github.com/idno/idno.git
+	url = https://github.com/michielbdejong/idno.git
 [submodule "per-user/owncloud"]
 	path = per-user/owncloud
-	url = https://github.com/owncloud/core.git
+	url = https://github.com/michielbdejong/owncloud-core.git
 [submodule "per-user/anchorcms"]
 	path = per-user/anchorcms
-	url = https://github.com/anchorcms/anchor-cms.git
+	url = https://github.com/michielbdejong/anchor-cms.git
