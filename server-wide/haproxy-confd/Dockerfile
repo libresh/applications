@@ -1,1 +1,1 @@
-FROM michielbdejong/haproxy-confd
+FROM pierreozoux/haproxy-confd
