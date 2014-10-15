@@ -11,8 +11,9 @@ RUN apt-get update \
 	&& echo "postfix postfix/mailname string 'HOSTNAME.EXAMPLE.COM'" | debconf-set-selections \
 	&& echo "postfix postfix/root_address string 'ROOTMAIL@EXAMPLE.COM'" | debconf-set-selections \
 	&& apt-get install -q -y \
-		  postfix \
-		  supervisor \
+		postfix \
+		rsyslog \
+		supervisor \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY assets/install.sh /opt/install.sh
