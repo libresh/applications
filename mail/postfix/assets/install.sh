@@ -27,3 +27,8 @@ touch /var/log/mail.log
 tail -f /var/log/mail.log
 EOF
 chmod +x /opt/postfix.sh
+
+# Configure email domain on first run:
+echo ${HOSTNAME} > /etc/mailname
+/usr/sbin/postconf -e "myhostname=${HOSTNAME}"
+/usr/sbin/postconf -e "mydestination=${HOSTNAME}"
