@@ -12,6 +12,7 @@ RUN apt-get update \
 	&& echo "postfix postfix/root_address string 'ROOTMAIL@EXAMPLE.COM'" | debconf-set-selections \
 	&& apt-get install -q -y \
 		  postfix \
+		  supervisor \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY assets/install.sh /opt/install.sh
