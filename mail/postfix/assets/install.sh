@@ -14,7 +14,7 @@ nodaemon=true
 command=/opt/postfix.sh
 
 [program:rsyslog]
-command=/usr/sbin/rsyslogd -n -c3
+command=/usr/sbin/rsyslogd -n
 EOF
 
 ############
@@ -23,6 +23,7 @@ EOF
 cat >> /opt/postfix.sh <<EOF
 #!/bin/bash
 service postfix start
+touch /var/log/mail.log
 tail -f /var/log/mail.log
 EOF
 chmod +x /opt/postfix.sh
