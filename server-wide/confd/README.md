@@ -6,7 +6,7 @@ The smallest confd docker image in town ;)
 
 This image will log everything to stdout/stderr.
 
-It was designed to work with HAproxy, but you can use it for anything! There is no configuration, you'll have to mount the config folder. There is a nice exaple in [indiehosters/confd git repo](https://github.com/indiehosters/dockerfiles/tree/master/server-wide/confd).
+It was designed to work with HAproxy, but you can use it for anything! There is no configuration, you'll have to mount the config folder. There is a nice example in [indiehosters/confd git repo](https://github.com/indiehosters/dockerfiles/tree/master/server-wide/confd).
 
 ```bash
 docker run\
