@@ -16,4 +16,4 @@ docker run\
 indiehosters/confd
 ```
 
-It works really well with `indiehosters/haproxy` to have automatic configuration of HAproxy backed by `etcd` or `consul`.
+It works really well with [indiehosters/haproxy](https://registry.hub.docker.com/u/indiehosters/haproxy/) to have automatic configuration of HAproxy backed by `etcd` or `consul`.
