@@ -8,11 +8,6 @@ This image will log everything to stdout/stderr. Somehow, it respects 12-Factor 
 
 ```bash
 docker run\
-  -p 80:80\
-  -p 443:443
-  indiehosters/haproxy
-# with specific config folder:
-docker run\
   -v /haproxy-config:/etc/haproxy\
   -p 80:80\
   -p 443:443\
