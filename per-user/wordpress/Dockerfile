@@ -1,1 +1,1 @@
-FROM tutum/wordpress-stackable
+FROM pierreozoux/wordpress-stackable
