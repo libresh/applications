@@ -1,0 +1,1 @@
+FROM michielbdejong/wordpress-subdir
