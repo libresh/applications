@@ -16,6 +16,7 @@ ADD oc-config.php /app/oc-config.php
 # Add script to create 'owncloud' DB
 ADD run-owncloud.sh /run-owncloud.sh
 RUN chmod 755 /run-owncloud.sh
+RUN chmod -R 775 /app/config
 
 # Expose environment variables
 ENV DB_HOST **LinkMe**
