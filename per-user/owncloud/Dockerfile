@@ -1,8 +1,16 @@
 FROM indiehosters/lamp
 
 # Download latest version of ownCloud into /app
-RUN curl -L https://download.owncloud.org/community/owncloud-7.0.2.tar.bz2 \
-  | tar xj &&  mv owncloud-7.0.2/* app
+RUN apt-get update && \
+	apt-get -yq install \
+		bzip2 && \
+	curl -L https://download.owncloud.org/community/owncloud-7.0.2.tar.bz2 \
+		| tar xj && \
+	mv owncloud/* app && \
+	apt-get -yq remove bzip2 && \
+        apt-get -yq autoclean && \
+	rm -rf /var/lib/apt/lists/*
+
 ADD oc-config.php /app/oc-config.php
 
 # Add script to create 'owncloud' DB
