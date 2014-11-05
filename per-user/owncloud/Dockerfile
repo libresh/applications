@@ -1,8 +1,8 @@
 FROM indiehosters/lamp
 
-# Download latest version of Wordpress into /app
-RUN curl -L https://owncloud.org/owncloud-4.0.tar.gz | tar xz && \
-  mv owncloud/* app
+# Download latest version of ownCloud into /app
+RUN curl -L https://download.owncloud.org/community/owncloud-7.0.2.tar.bz2 \
+  | tar xj &&  mv owncloud-7.0.2/* app
 ADD oc-config.php /app/oc-config.php
 
 # Add script to create 'owncloud' DB
