@@ -1,8 +1,7 @@
 FROM indiehosters/lamp
 
 # Download latest version of Known into /app
-RUN curl -L http://assets.withknown.com/releases/known-0.6.4.tgz | tar xz 
-RUN #  mv known/* app
+RUN mkdir -p ; cd /app ; curl -L http://assets.withknown.com/releases/known-0.6.4.tgz | tar xz
 ADD known-config.php /app/known-config.php
 
 # Add script to create 'known' DB
