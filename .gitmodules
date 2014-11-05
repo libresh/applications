@@ -4,9 +4,6 @@
 [submodule "per-user/idno"]
 	path = per-user/idno
 	url = https://github.com/michielbdejong/idno.git
-[submodule "per-user/owncloud"]
-	path = per-user/owncloud
-	url = https://github.com/michielbdejong/owncloud-core.git
 [submodule "per-user/anchorcms"]
 	path = per-user/anchorcms
 	url = https://github.com/michielbdejong/anchor-cms.git
