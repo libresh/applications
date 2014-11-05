@@ -25,5 +25,5 @@ ENV DB_USER admin
 ENV DB_PASS **ChangeMe**
 
 EXPOSE 80
-VOLUME ["/app/oc-content", "/app/.htaccess"]
+VOLUME ["/app"]
 CMD ["/run-owncloud.sh"]
