@@ -15,6 +15,12 @@ ENV DB_NAME known
 ENV DB_USER admin
 ENV DB_PASS **ChangeMe**
 
+# to be cleaned up:
+RUN apt-get update
+RUN apt-get install -y php5-xmlrpc
+RUN mkdir /uploads
+RUN chown www-data:www-data /uploads
+
 EXPOSE 80
 VOLUME ["/app"]
 CMD ["/run-known.sh"]
