@@ -5,7 +5,6 @@ RUN mkdir -p ; cd /app ; curl -L http://assets.withknown.com/releases/known-0.6.
 RUN mkdir /uploads
 RUN chown www-data:www-data /uploads
 RUN cp /app/schemas/mysql/mysql.sql /initial_db.sql
-ADD config.ini /app/config.ini
 RUN mv /app/htaccess.dist /app/.htaccess
 
 # Add script to create 'known' DB
