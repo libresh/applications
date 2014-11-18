@@ -8,8 +8,8 @@ RUN apt-get update \
 		curl \
 		mysql-client \
 		libapache2-mod-php5 \
+		php-apc \
 		php-pear \
-		php5-apcu \
 		php5-curl \
 		php5-gd \
 		php5-mysql \
