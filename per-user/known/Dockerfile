@@ -2,7 +2,11 @@ FROM indiehosters/lamp
 
 # Download latest version of Known into /app
 RUN mkdir -p ; cd /app ; curl -L http://assets.withknown.com/releases/known-0.6.4.tgz | tar xz
-ADD known-config.php /app/known-config.php
+RUN mkdir /uploads
+RUN chown www-data:www-data /uploads
+RUN cp /app/schemas/mysql/mysql.sql /initial_db.sql
+ADD config.ini /app/config.ini
+RUN mv /app/htaccess.dist /app/.htaccess
 
 # Add script to create 'known' DB
 ADD run-known.sh /run-known.sh
@@ -16,13 +20,6 @@ ENV DB_USER admin
 ENV DB_PASS **ChangeMe**
 
 # to be cleaned up:
-RUN apt-get update
-RUN apt-get install -y php5-xmlrpc
-RUN mkdir /uploads
-RUN chown www-data:www-data /uploads
-
-ADD config.ini /app/config.ini
-RUN mv /app/htaccess.dist /app/.htaccess
 
 EXPOSE 80
 VOLUME ["/app"]

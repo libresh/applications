@@ -28,6 +28,16 @@ echo "      Database Username:      $DB_USER"
 echo "      Database Password:      $DB_PASS"
 echo "========================================================================"
 
+echo "database = 'MySQL'" > /app/config.ini
+echo "dbhost = '$DB_HOST'" >> /app/config.ini
+echo "dbname = '$DB_NAME'" >> /app/config.ini
+echo "dbuser = '$DB_USER'" >> /app/config.ini
+echo "dbpass = '$DB_PASS'" >> /app/config.ini
+echo "filesystem = 'local'" >> /app/config.ini
+echo "uploadpath = '/uploads/'" >> /app/config.ini
+chown root:www-data /app/config.ini
+chmod 640 /app/config.ini
+
 for ((i=0;i<10;i++))
 do
     DB_CONNECTABLE=$(mysql -u$DB_USER -p$DB_PASS -h$DB_HOST -P$DB_PORT -e 'status' >/dev/null 2>&1; echo "$?")
