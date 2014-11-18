@@ -21,6 +21,9 @@ RUN apt-get install -y php5-xmlrpc
 RUN mkdir /uploads
 RUN chown www-data:www-data /uploads
 
+ADD config.ini /app/config.ini
+RUN mv /app/.htaccess.dist /app/.htaccess
+
 EXPOSE 80
 VOLUME ["/app"]
 CMD ["/run-known.sh"]
