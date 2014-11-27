@@ -1,7 +1,7 @@
 FROM indiehosters/lamp
 
 # Download latest version of Known into /app
-RUN mkdir -p ; cd /app ; curl -L http://assets.withknown.com/releases/known-0.6.4.tgz | tar xz
+RUN mkdir -p ; cd /app ; curl -L http://assets.withknown.com/releases/known-0.6.5.tgz | tar xz
 RUN mkdir /uploads
 RUN chown www-data:www-data /uploads
 RUN cp /app/schemas/mysql/mysql.sql /initial_db.sql
