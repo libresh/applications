@@ -1,0 +1,40 @@
+diff --git mediagoblin/tools/mail.py mediagoblin/tools/mail.py
+index 0fabc5a..2dbea47 100644
+--- mediagoblin/tools/mail.py
++++ mediagoblin/tools/mail.py
+@@ -15,6 +15,7 @@
+ # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
+ import smtplib
++import logging
+ from email.MIMEText import MIMEText
+ from mediagoblin import mg_globals, messages
+ from mediagoblin.tools import common
+@@ -23,6 +24,8 @@ from mediagoblin.tools import common
+ ### Special email test stuff begins HERE
+ ### ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
++_log = logging.getLogger(__name__)
++
+ # We have two "test inboxes" here:
+ #
+ # EMAIL_TEST_INBOX:
+@@ -119,12 +122,12 @@ def send_email(from_addr, to_addrs, subject, message_body):
+         EMAIL_TEST_INBOX.append(message)
+ 
+     elif mg_globals.app_config['email_debug_mode']:
+-        print u"===== Email ====="
+-        print u"From address: %s" % message['From']
+-        print u"To addresses: %s" % message['To']
+-        print u"Subject: %s" % message['Subject']
+-        print u"-- Body: --"
+-        print message.get_payload(decode=True)
++        _log.info(u"===== Email =====")
++        _log.info(u"From address: %s" % message['From'])
++        _log.info(u"To addresses: %s" % message['To'])
++        _log.info(u"Subject: %s" % message['Subject'])
++        _log.info(u"-- Body: --")
++        _log.info(message.get_payload(decode=True))
+ 
+     return mhost.sendmail(from_addr, to_addrs, message.as_string())
+ 
