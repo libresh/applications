@@ -1,1 +1,2 @@
 0 * * * * root cd /data; mysqldump --all-databases > dump.sql; git add *; git commit -am"backup `date`"; git push -u origin master; git push -u secondary master
+
