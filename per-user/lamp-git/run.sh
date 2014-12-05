@@ -3,8 +3,8 @@
 git config --global user.email "backup@IndieHosters"
 git config --global user.name "IndieHosters backup"
 
-chown root:www-data /data/uploads
-chmod g+rwx /data/uploads
+chown -R root:www-data /data/uploads
+chmod -R 770 /data/uploads
 
 exec mysqld_safe &
 exec cron &
