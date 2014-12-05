@@ -20,9 +20,9 @@ RUN apt-get update \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Add image configuration and scripts
-ADD default.conf /etc/apache2/sites-enabled/000-default.conf
-ADD run.sh /run.sh
-ADD backup.cron /etc/cron.d/backup.cron
+COPY default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY run.sh /run.sh
+COPY backup.cron /etc/cron.d/backup.cron
 RUN sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini \
 	&& a2enmod rewrite \
 	&& chmod 755 /run.sh
