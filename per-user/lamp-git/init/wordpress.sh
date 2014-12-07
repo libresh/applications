@@ -14,7 +14,8 @@ apt-get update
 apt-get install -y pwgen
 PWD=`pwgen 40 1`
 php /root/wp-cli.phar --path="/data/www-content" --allow-root core install \
-	--url="$1" --title="$2" --admin_user="$3" --admin_password="$PWD" --admin_email="$4"
+	--url="$1" --title="$2" --admin_user="$3" --admin_password="$PWD" --admin_email="$4" \
+	--extra-php="define("FS_METHOD","direct"); define("FS_CHMOD_DIR", 0777); define("FS_CHMOD_FILE", 0777);"
 
 #TODO: Debug if/why this is necessary:
 php /root/wp-cli.phar --path="/data/www-content" --allow-root user update $3 --user_pass="$PWD" 
@@ -55,6 +56,9 @@ php /root/wp-cli.phar --path="/data/www-content" --allow-root plugin activate in
 
 php /root/wp-cli.phar --path="/data/www-content" --allow-root theme install sempress
 php /root/wp-cli.phar --path="/data/www-content" --allow-root theme activate sempress
+
+php /root/wp-cli.phar --path="/data/www-content" --allow-root theme install wpsupercache
+php /root/wp-cli.phar --path="/data/www-content" --allow-root theme activate wpsupercache
 
 echo Making  WordPress content folder writable for the webserver...
 chown -R root:www-data /data/www-content
