@@ -1,17 +1,17 @@
+if  [ $# -lt 4 ]; then
+  echo Usage: ./wordpress.sh https://exampledomain.com/ "Example Domain" "example" "example@elsewhere.com"
+  exit 1
+fi
 echo Unpacking latest WordPress into /data/www-content...
-curl -L https://wordpress.org/latest.tar.gz | tar xz
-rm -rf /data/www-content
-mv wordpress /data/www-content
-
-echo Creating wp-config.php...
-mv wp-config.php /data/www-content/wp-config.php
-curl -L https://api.wordpress.org/secret-key/1.1/salt/ >> /data/www-content/wp-config.php
-
-echo Setting ownership and permissions...
-chown -R root:www-data /data
-chmod -R 600 /data
-chmod -R 650 /data/www-content
-chmod -R 770 /data/www-content/wp-content
-
-echo Starting MySQL so that you can import wordpress.sql...
-mysqld_safe 
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+php /root/wp-cli.phar --path="/data/www-content" --allow-root core download
+php /root/wp-cli.phar --path="/data/www-content" --allow-root core config --dbname=wordpress --dbuser=root
+php /root/wp-cli.phar --path="/data/www-content" --allow-root db create
+PWD=`pwgen 40 1`
+php /root/wp-cli.phar --path="/data/www-content" --allow-root core install \
+	--url="$1" --title="$2" --admin_user="$3" --admin_password="$PWD" --admin_email="$4"
+php /root/wp-cli.phar --path="/data/www-content" --allow-root plugin install wordpress-https
+php /root/wp-cli.phar --path="/data/www-content" --allow-root plugin activate wordpress-https
+echo "user: $3" > /data/login.txt
+echo "pass: $PWD" >> /data/login.txt
+echo "Done, login details saved to /data/login.txt"
