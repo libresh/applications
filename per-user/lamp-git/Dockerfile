@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
 	&& apt-get -yq install \
 		apache2 \
-                cron \
 		curl \
 		git \
 		libapache2-mod-php5 \
@@ -22,7 +21,6 @@ RUN apt-get update \
 # Add image configuration and scripts
 COPY default.conf /etc/apache2/sites-enabled/000-default.conf
 COPY run.sh /run.sh
-COPY backup.cron /etc/cron.d/backup.cron
 RUN sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini \
 	&& a2enmod rewrite \
 	&& chmod 755 /run.sh

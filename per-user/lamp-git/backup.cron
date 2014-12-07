@@ -1,2 +1,0 @@
-42 * * * * root cd /data; mysqldump --all-databases > dump.sql; git add *; git commit -am"backup `date`"
-

@@ -11,4 +11,14 @@ exec cron &
 sleep 5
 mysql < /data/dump.sql
 source /etc/apache2/envvars
-exec apache2 -D FOREGROUND
+exec apache2 &
+cd /data
+while (1); do
+  mysqldump --all-databases > dump.sql;
+  git add *;
+  git commit -am"backup `date`";
+  git status;
+  date;
+  echo "Next backup in one hour...";
+  sleep 3540;
+done
