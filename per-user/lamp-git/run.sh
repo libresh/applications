@@ -27,7 +27,6 @@ cd /data
 git init
 git config --local user.email "backup@IndieHosters"
 git config --local user.name "IndieHosters backup"
-git config --local push.default simple
 
 while true; do
   mysqldump --all-databases > dump.sql
