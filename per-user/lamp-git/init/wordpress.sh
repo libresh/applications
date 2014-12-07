@@ -2,11 +2,16 @@ if  [ $# -lt 4 ]; then
   echo Usage: ./wordpress.sh https://exampledomain.com/ "Example Domain" "example" "example@elsewhere.com"
   exit 1
 fi
+
 echo Unpacking latest WordPress into /data/www-content...
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 php /root/wp-cli.phar --path="/data/www-content" --allow-root core download
 php /root/wp-cli.phar --path="/data/www-content" --allow-root core config --dbname=wordpress --dbuser=root
 php /root/wp-cli.phar --path="/data/www-content" --allow-root db create
+
+# pwgen is not part of the runtime lamp-git image:
+apt-get update
+apt-get install -y pwgen
 PWD=`pwgen 40 1`
 php /root/wp-cli.phar --path="/data/www-content" --allow-root core install \
 	--url="$1" --title="$2" --admin_user="$3" --admin_password="$PWD" --admin_email="$4"
@@ -50,6 +55,10 @@ php /root/wp-cli.phar --path="/data/www-content" --allow-root plugin activate in
 
 php /root/wp-cli.phar --path="/data/www-content" --allow-root theme install sempress
 php /root/wp-cli.phar --path="/data/www-content" --allow-root theme activate sempress
+
+echo Making  WordPress content folder writable for the webserver...
+chown -R root:www-data /data/www-content
+chmod 770 /data/www-content/wp-content
 
 echo "user: $3" > /data/login.txt
 echo "pass: $PWD" >> /data/login.txt
