@@ -4,7 +4,6 @@ if  [ $# -lt 4 ]; then
 fi
 
 echo Unpacking latest WordPress into /data/www-content...
-curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 php /root/wp-cli.phar --path="/data/www-content" --allow-root core download
 php /root/wp-cli.phar --path="/data/www-content" --allow-root core config --dbname=wordpress --dbuser=root
 php /root/wp-cli.phar --path="/data/www-content" --allow-root db create

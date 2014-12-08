@@ -7,6 +7,6 @@ RUN apt-get update \
 		pwgen \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN cd /root && curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 COPY init/wordpress.sh /init/wordpress.sh
