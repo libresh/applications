@@ -7,7 +7,7 @@ RUN apt-get update \
 		pwgen \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN curl -L http://assets.withknown.com/releases/known-0.6.5.tgz
+RUN cd /init && curl -L http://assets.withknown.com/releases/known-0.6.5.tgz
 
 COPY init/known.sh /init/known.sh
 COPY init/config.ini /init/config.ini

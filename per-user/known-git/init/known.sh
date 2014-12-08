@@ -1,10 +1,10 @@
 #!/bin/bash
 
-$VERSION = 0.6.5
+VERSION="0.6.5"
 
-echo "Extracting Known {$VERSION}..."
+echo "Extracting Known $(VERSION}..."
 cd /data/www-content
-tar xzf /known-$VERSION.tgz
+tar xzf /init/known-$VERSION.tgz
 
 echo "Setting default config..."
 cp /init/config.ini .
