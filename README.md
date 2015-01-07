@@ -1,8 +1,11 @@
 # Dockerfiles
 
-This repo contains the Dockerfiles for images used in [the IndieHosters infrastructure](https://github.com/indiehosters/infrastructure.git).
+This repo contains the Dockerfiles for images used in
+[Pierre's indiehosters setup](https://github.com/pierreozoux/indiepaas).
+Most of them are very similar to the ones used in [Michiel's indiehosters setup](https://github.com/michielbdejong/indiehosters-docker-bash),
+and although the two implementations both implement SNI-based containerized hosting of the same personal server applications, compatible with the IndieHosters migration format, the Docker images for both are maintained separately.
 
-We have three ways of building Docker images:
+In this repo, we have three ways of building Docker images:
 
 * from source - In this repo, there will be a git submodule to a software project that includes a Dockerfile in its source repo.
     we will build images from that as indiehosters/project:tag, where project is the name of the submodule here, and tag is a git
