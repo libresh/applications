@@ -1,9 +1,6 @@
 # Dockerfiles
 
-This repo contains the Dockerfiles for images used in
-[Pierre's indiehosters setup](https://github.com/pierreozoux/indiepaas).
-Most of them are very similar to the ones used in [Michiel's indiehosters setup](https://github.com/michielbdejong/indiehosters-docker-bash),
-and although the two implementations both implement SNI-based containerized hosting of the same personal server applications, compatible with the IndieHosters migration format, the Docker images for both are maintained separately.
+This repo contains the Dockerfiles for images used by indiehosters. Some are per-user, others (like the load-balancer and email service) are server-wide.
 
 In this repo, we have three ways of building Docker images:
 
@@ -18,20 +15,6 @@ In this repo, we have three ways of building Docker images:
 
 * by reference - Same as from package, but instead of doing a package install like `apt-get`, it would do a source install, so `git clone` or
     `wget`. This might be useful for instance when an image combines code from several open source projects. In most cases though, it will be preferable to add the Dockerfile into the upstream source repo of the user-facing application.
-
-
-NB: So far, at the time of writing, infrastructure doesn't use any of the images from this repo yet, but still uses the following third-party
-packages which it pulls from the public image registry operated by docker.com:
-
-Server-wide:
-
-* dockerfile/haproxy
-
-Per-user:
-
-* tutum/wordpress-stackable
-* tutum/mysql
-* tutum/nginx
 
 # Build
 
