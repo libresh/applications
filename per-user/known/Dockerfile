@@ -1,11 +1,24 @@
-FROM indiehosters/apache
+FROM indiepaas/apache
 
 # Download latest version of Known into /app
-RUN mkdir -p ; cd /app ; curl -L http://assets.withknown.com/releases/known-0.6.5.tgz | tar xz
-RUN mkdir /uploads
-RUN chown www-data:www-data /uploads
-RUN cp /app/schemas/mysql/mysql.sql /initial_db.sql
-RUN mv /app/htaccess.dist /app/.htaccess
+RUN mkdir -p /app && \
+  cd /app && \
+  curl -L http://assets.withknown.com/releases/known-latest.zip -o known.zip && \
+  unzip known.zip && \
+  rm -rf known.zip && \
+  cd IdnoPlugins && \
+  curl -L https://github.com/idno/Twitter/archive/master.zip -o twitter.zip && \
+  unzip twitter.zip && \
+  mv Twitter-master/ Twitter && \
+  rm twitter.zip && \
+  curl -L https://github.com/idno/Facebook/archive/master.zip -o facebook.zip && \
+  unzip facebook.zip && \
+  mv Facebook-master/ Facebook && \
+  rm facebook.zip && \
+  curl -L https://github.com/idno/Markdown/archive/master.zip -o markdown.zip && \
+  unzip markdown.zip && \
+  mv Markdown-master/ Markdown && \
+  rm markdown.zip
 
 # Add script to create 'known' DB
 ADD run-known.sh /run-known.sh
@@ -18,8 +31,6 @@ ENV DB_NAME known
 ENV DB_USER admin
 ENV DB_PASS **ChangeMe**
 
-# to be cleaned up:
-
 EXPOSE 80
-VOLUME ["/app"]
+VOLUME ["/app/Uploads", "/app/.htaccess"]
 CMD ["/run-known.sh"]

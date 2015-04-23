@@ -1,13 +1,7 @@
 #!/bin/bash
 
-chown -R root:www-data /app
-chmod -R 650 /app
-chmod -R 770 /app/wp-content/
-chmod -R 660 /app/.htaccess
-
-if [ -f /.mysql_db_created ]; then
-        exec /run.sh
-        exit 1
+if [ ! "$(ls -A /app/wp-content)" ]; then
+  cp -av /wp-content/* /app/wp-content/
 fi
 
 DB_HOST=${DB_PORT_3306_TCP_ADDR:-${DB_HOST}}
@@ -56,6 +50,16 @@ if [[ $DB_CONNECTABLE -eq 0 ]]; then
             fi
         fi
         echo "=> Done!"
+        echo "=> Installation of Wordpress"
+        PASS=`openssl rand -base64 15`
+        cd /app
+        wp --allow-root core install --url=https://${URL} --title=${URL} --admin_user=${EMAIL} --admin_password=${PASS} --admin_email=${EMAIL}
+        wp --allow-root plugin install wordpress-https
+        wp --allow-root plugin activate wordpress-https
+        echo "=> Done!"
+	echo "============================================="
+        echo "to connect ${EMAIL}:${PASS}"
+        echo "============================================="
     else
         echo "=> Skipped creation of database $DB_NAME – it already exists."
     fi
@@ -64,5 +68,10 @@ else
     exit $DB_CONNECTABLE
 fi
 
-touch /.mysql_db_created
+chown -R root:www-data /app
+chmod -R 650 /app
+chmod -R 770 /app/wp-content/
+chmod -R 660 /app/.htaccess
+
 exec /run.sh
+

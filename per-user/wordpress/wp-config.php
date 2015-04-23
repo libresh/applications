@@ -14,6 +14,11 @@
  * @package WordPress
  */
 
+define('FORCE_SSL_ADMIN', true);
+if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+       $_SERVER['HTTPS']='on';
+$_SERVER["SERVER_PORT"]='443';
+
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', getenv('DB_NAME'));
