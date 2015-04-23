@@ -1,0 +1,8 @@
+{
+  "name": "indiehosters-applications",
+  "repository": "https://github.com/indiehosters/applications",
+  "version": "0.0.1",
+  "dependencies": {
+  },
+  "main": "index.js"
+}

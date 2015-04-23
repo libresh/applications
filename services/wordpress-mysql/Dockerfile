@@ -1,4 +1,4 @@
-FROM lamp
+FROM indiehosters/lamp
 
 ENV DEBIAN_FRONTEND noninteractive
 
