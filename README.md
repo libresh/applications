@@ -1,21 +1,21 @@
 # Dockerfiles
 
-This repo contains the Dockerfiles for images used by indiehosters. Some are per-user, others (like the load-balancer and email service) are server-wide.
+This repo contains Dockerfiles for personal web applications. They can all be used in the same way:
 
-In this repo, we have three ways of building Docker images:
 
-* from source - In this repo, there will be a git submodule to a software project that includes a Dockerfile in its source repo.
-    we will build images from that as indiehosters/project:tag, where project is the name of the submodule here, and tag is a git
-    tag inside that repo. If what we need for the IndieHosters infrastructure is not available out of the box then we will fork the
-    project, and submodule our fork, while at the same time submiting a pull request upstream. As soon as this pull request gets merged
-    we will submodule the upstream project directly again.
+````bash
+docker run -d -p 80:80 -v $(pwd)/<applicationname>:/data --hostname <yourdomain.com> --name <yourdomain.com> \
+    -e ADMIN_USER=<username> -e ADMIN_PASS=<password> indiehosters/<applicationname>
+docker stop <yourdomain.com> && docker rm <yourdomain.com>
+````
 
-* from package - In this repo, there will be a folder with a Dockerfile which refers to the actual software via a package system, probably
-    apt-get.
+All images will:
 
-* by reference - Same as from package, but instead of doing a package install like `apt-get`, it would do a source install, so `git clone` or
-    `wget`. This might be useful for instance when an image combines code from several open source projects. In most cases though, it will be preferable to add the Dockerfile into the upstream source repo of the user-facing application.
-
-# Build
-
-To build, run `sh ./init.sh; sh ./build.sh`
+* listen for http requests on port 80 (they are designed to run behind a TLS-offloading proxy)
+* send any outgoing user notifications or password reset emails directly (so configure a firewall rule if you have a mail relay)
+* store all data in the `/data` folder which you mapped to `$(pwd)/<applicationname>` in the first command
+* initialize automatically when you run them with an empty `/data` folder mounted in
+* skip any post-install server configuration wizards on first use when you execute the second `/setuserpass.sh` command
+* shut down gracefully when you `docker stop` them (never use `docker kill` an application while it is writing to the database)
+* resume seamlessly, even if you move the data folder to another host, and create a new container from the same image
+* work out-of-the-box, without external dependencies
