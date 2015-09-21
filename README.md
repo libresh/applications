@@ -1,3 +1,34 @@
-This repo is a placeholder for all the applications that need to be developped.
+# IndieHosters applications
 
-You can see as the issue tracker for all modularized IndieHosters applications.
+What is an application for IndieHosters?
+It is a repo that must contain the following:
+ - `docker-compose.yml`
+ - `BACKUP` script to backup databases (or an emtpy bash script if no backups are needed)
+
+## Docker-compose
+
+The `docker-compose` must start a service called `web` that exposes a port 80.
+
+## Dockerfile
+
+The docker-compose should use Docker official images.
+If none are available, then make one, and try to pull request upstream and offer help to make it official.
+If you need more than the bare image, base your Dockerfile on the official one, and try to pull request the official one. Other people might need your work.
+
+## Environment
+
+### Mail
+
+If the application needs to send email pass the mail server configuration as environment variables:
+```
+MAIL_HOST
+MAIL_PORT
+MAIL_USER
+MAIL_PASS
+```
+
+Your app should be able to understand them.
+
+## Example
+
+A good example is the [wordpress application](https://github.com/indiehosters/wordpress).
