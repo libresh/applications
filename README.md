@@ -3,7 +3,9 @@
 What is an application for IndieHosters?
 It is a repo that must contain the following:
  - `docker-compose.yml`
- - `BACKUP` script to backup databases (or an emtpy bash script if no backups are needed)
+ - an optionnal `scripts` folder with:
+  - an `install` script
+  - a `pre-backup` script to do databases dump for instance
 
 ## Docker-compose
 
