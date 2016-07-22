@@ -10,6 +10,14 @@ It is a repo that must contain the following:
 ## Docker-compose
 
 The `docker-compose` must start a service called `web` that exposes a port 80.
+Under the `web` service, it should have the `environment` variable ready to be populated:
+
+```
+...
+  environment:
+    - HOST
+...
+```
 
 ## Dockerfile
 
