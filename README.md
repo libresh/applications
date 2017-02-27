@@ -15,7 +15,7 @@ Under the `web` service, it should have the `environment` variable ready to be p
 ```
 ...
   environment:
-    - HOST
+    - VIRTUAL_HOST
 ...
 ```
 
